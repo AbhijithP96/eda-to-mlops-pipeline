@@ -3,8 +3,13 @@ from src.outlier_detection import OutlierDetector, ZScoreOutlierDetection, IQROu
 from zenml import step
 
 @step
-def outlier_detection_step(df: pd.DataFrame, detection_method: str = 'zscore',kwargs=None) -> pd.DataFrame:
+def outlier_detection_step(df: pd.DataFrame, column_name: str ,kwargs=None) -> pd.DataFrame:
     """Applies Outlier Detection and handling using the given methods"""
+
+    if column_name not in df.columns:
+        raise ValueError(f"Column '{column_name}' does not exist in the DataFrame.")
+
+    detection_method = kwargs['outlier_detection']
 
     if detection_method == 'zscore':
         zscore_thresh = kwargs['zscore_thresh'] if kwargs['zscore_thresh'] else 3.0

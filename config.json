@@ -1,11 +1,21 @@
 {
-    "file_path" :  "/home/basilisk/Documents/Price_predictor/ops/data/archive.zip",
-    "missing_value_strat" : "mean",
-    "feature_engineer_strat" : "log",
-    "engineer_features" : ["Gr Liv Area" , "SalePrice"],
-    "outlier_detection" : "zscore",
-    "zscore_thresh" : 3.0,
-    "handle_outliers" : "remove",
-    "target_column" : "SalePrice"
+    "model":{
+                "name" : "Linear Regression"
+            },
+    
+    "data": {
+                "file_path" :  "/home/basilisk/Documents/Price_predictor/ops/data/archive.zip"
+            },
+
+    "parameters":{
+                "missing_value_strat" : "mean",
+                "feature_engineer_strat" : "log",
+                "engineer_features" : ["Gr Liv Area" , "SalePrice"],
+                "outlier_detection" : "zscore",
+                "column_name" : "SalePrice",
+                "zscore_thresh" : 3.0,
+                "handle_outliers" : "remove",
+                "target_column" : "SalePrice"
+                }
 
 }

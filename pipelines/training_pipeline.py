@@ -3,6 +3,7 @@ from steps.handle_missing_values_step import handle_missing_values_step
 from steps.feature_engineering_step import feature_engineering_step
 from steps.outlier_handling_step import outlier_detection_step
 from steps.data_splitting_step import data_splitting_step
+from steps.model_building_step import model_building_step
 
 
 from zenml import Model, pipeline, step
@@ -17,24 +18,30 @@ def ml_pipeline(kwargs):
 
     # Data Ingestion Step
     #file_path = './data/archive.zip'
-    raw_data = data_loader_step(kwargs['file_path'])
+    raw_data = data_loader_step(kwargs['data']['file_path'])
 
     # Handling Missing Values
-    missing_value_strat = kwargs['missing_value_strat']
+    pipeline_params = kwargs['parameters']
+    missing_value_strat = pipeline_params['missing_value_strat']
     handled_data = handle_missing_values_step(raw_data, missing_value_strat)
 
     # Feature Engineering
-    feature_engineer_strat = kwargs['feature_engineer_strat']
-    features = kwargs['engineer_features']
+    feature_engineer_strat = pipeline_params['feature_engineer_strat']
+    features = pipeline_params['engineer_features']
     transformed_data = feature_engineering_step(handled_data, strategy=feature_engineer_strat, features=features)
 
     # Outlier Detection
-    detection_method = kwargs['outlier_detection']
-    cleaned_data = outlier_detection_step(transformed_data, detection_method, kwargs)
+    column_name = pipeline_params['column_name']
+    cleaned_data = outlier_detection_step(transformed_data, column_name , pipeline_params)
 
     # Split Dataset
-    target_column = kwargs['target_column']
+    target_column = pipeline_params['target_column']
     X_train, X_test, y_train, y_test = data_splitting_step(cleaned_data, target_column)
+
+    # Build and train model
+    model_name = kwargs['model']['name']
+    model = model_building_step(X_train, y_train, model_name)
+
 
 if __name__ == "__main__":
     # Running the pipeline
