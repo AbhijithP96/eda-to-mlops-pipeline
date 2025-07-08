@@ -12,10 +12,8 @@ from zenml import ArtifactConfig, step
 from zenml.client import Client
 from zenml import Model
 
-# setup experiment tracker
-experiment_tracker = Client().active_stack.experiment_tracker
 
-@step(enable_cache=False, experiment_tracker=experiment_tracker.name)
+@step(enable_cache=False)
 def model_evaluation_step(
     trained_model: Pipeline, X_test: pd.DataFrame, y_test: pd.Series
 ):
