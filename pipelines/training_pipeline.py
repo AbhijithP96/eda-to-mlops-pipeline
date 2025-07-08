@@ -4,7 +4,7 @@ from steps.feature_engineering_step import feature_engineering_step
 from steps.outlier_handling_step import outlier_detection_step
 from steps.data_splitting_step import data_splitting_step
 from steps.model_building_step import model_building_step
-
+from steps.model_evaluation_step import model_evaluation_step
 
 from zenml import Model, pipeline, step
 
@@ -41,6 +41,11 @@ def ml_pipeline(kwargs):
     # Build and train model
     model_name = kwargs['model']['name']
     model = model_building_step(X_train, y_train, model_name)
+
+    # evaluate model
+    evaluation_metric = model_evaluation_step(model, X_test, y_test)
+
+    return model
 
 
 if __name__ == "__main__":

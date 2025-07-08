@@ -1,9 +1,9 @@
 import logging
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Union
 
 import pandas as pd
-from sklearn.base import RegressorMixin
+from sklearn.base import RegressorMixin, ClassifierMixin
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 # Abstract Base Class for Model Building Template
 class ModelBuilding(ABC):
     @abstractmethod
-    def build_and_train_model(self, X_train: pd.DataFrame, y_train: pd.Series) -> RegressorMixin:
+    def build_and_train_model(self, X_train: pd.DataFrame, y_train: pd.Series) -> Union[RegressorMixin, ClassifierMixin]:
         """
         Abstract method to build and train a model.
 
@@ -195,7 +195,7 @@ class ModelBuilder:
         logging.info("Switching model building strategy.")
         self._strategy = strategy
 
-    def build_model(self, X_train: pd.DataFrame, y_train: pd.Series) -> RegressorMixin:
+    def build_model(self, X_train: pd.DataFrame, y_train: pd.Series) -> Union[RegressorMixin, ClassifierMixin]:
         """
         Executes the model building and training using the current strategy.
 
