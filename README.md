@@ -2,8 +2,16 @@
 
 This project showcases an end-to-end machine learning pipeline built using **ZenML**, **MLflow**, and **pandas**. It starts from **exploratory data analysis (EDA)** and progresses to a **production-grade MLOps workflow**, demonstrating key components like data preprocessing, model training, evaluation, and experiment tracking.
 
-This project follows a modular, template-based structure to demonstrate a **scalable and production-ready machine learning workflow**
+This project follows a modular, template-based structure to demonstrate a **scalable and production-ready machine learning workflow**.
 
+## 📥 Clone the Repository
+
+First, clone the repository to your local machine, then proceed with the environment setup.
+
+```bash
+git clone https://github.com/AbhijithP96/eda-to-mlops-pipeline.git
+cd eda-to-mlops-pipeline
+```
 
 ## 🔧 Environment Setup
 
