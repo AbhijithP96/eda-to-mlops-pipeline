@@ -139,7 +139,7 @@ During the training phase (`run_training.py`), the logs will display the **expec
 
 ### 🌐 2. Deploying the Mode
 
-You can deploy the model using:
+You can train and deploy the model using:
 
 ```bash
 python run_deployment.py --config 'path/to/config.json'
@@ -176,6 +176,6 @@ In addition to the deployed prediction endpoint, an inference pipeline is includ
 
 - Files or batch inputs
 
-You can use this to perform inference beyond CLI, such as integrating with a data service or dashboard.
+The predicted values are stored in `prediction_batch_data.json`
 
 To customize how and from where the data is fetched for inference, modify the `dynamic_importer.py` module.

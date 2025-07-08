@@ -32,46 +32,9 @@ def predictor(
     data.pop("index", None)  # Remove 'index' if it's present
 
     # Define the columns the model expects
-    expected_columns = [
-        "Order",
-        "PID",
-        "MS SubClass",
-        "Lot Frontage",
-        "Lot Area",
-        "Overall Qual",
-        "Overall Cond",
-        "Year Built",
-        "Year Remod/Add",
-        "Mas Vnr Area",
-        "BsmtFin SF 1",
-        "BsmtFin SF 2",
-        "Bsmt Unf SF",
-        "Total Bsmt SF",
-        "1st Flr SF",
-        "2nd Flr SF",
-        "Low Qual Fin SF",
-        "Gr Liv Area",
-        "Bsmt Full Bath",
-        "Bsmt Half Bath",
-        "Full Bath",
-        "Half Bath",
-        "Bedroom AbvGr",
-        "Kitchen AbvGr",
-        "TotRms AbvGrd",
-        "Fireplaces",
-        "Garage Yr Blt",
-        "Garage Cars",
-        "Garage Area",
-        "Wood Deck SF",
-        "Open Porch SF",
-        "Enclosed Porch",
-        "3Ssn Porch",
-        "Screen Porch",
-        "Pool Area",
-        "Misc Val",
-        "Mo Sold",
-        "Yr Sold",
-    ]
+    with open('expected_columns.json', 'r') as f:
+        data_columns = json.load(f)
+    expected_columns = data_columns['expected_columns']
 
     # Convert the data into a DataFrame with the correct columns
     df = pd.DataFrame(data["data"], columns=expected_columns)
@@ -82,5 +45,8 @@ def predictor(
 
     # Run the prediction
     prediction = service.predict(data_array)
+
+    with open('predictions_batch_data.json', 'w') as w:
+        json.dump({'prediction' : prediction.tolist()}, w)
 
     return prediction

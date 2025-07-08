@@ -11,6 +11,8 @@ from sklearn.base import RegressorMixin
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 
+import json
+
 # Setup logging configuration
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -98,6 +100,10 @@ class LinearRegressionModel(ModelBuilding):
         expected_columns = numerical_cols.tolist() + list(
             onehot_encoder.get_feature_names_out(categorical_cols)
         )
+        # Write to JSON
+        with open("expected_columns.json", "w") as f:
+            json.dump({"expected_columns": expected_columns}, f, indent=4)
+
         logging.info(f"Model expects the following columns: {expected_columns}")
 
         return pipeline
@@ -169,6 +175,11 @@ class LogisticRegressionModel(ModelBuilding):
         expected_columns = numerical_cols.tolist() + list(
             onehot_encoder.get_feature_names_out(categorical_cols)
         )
+
+        # Write to JSON
+        with open("expected_columns.json", "w") as f:
+            json.dump({"expected_columns": expected_columns}, f, indent=4)
+
         logging.info(f"Model expects the following columns: {expected_columns}")
 
         return pipeline
