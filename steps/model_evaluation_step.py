@@ -12,8 +12,9 @@ from zenml import ArtifactConfig, step
 from zenml.client import Client
 from zenml import Model
 
+experiment_tracker = Client().active_stack.experiment_tracker
 
-@step(enable_cache=False)
+@step(enable_cache=False, experiment_tracker=experiment_tracker.name)
 def model_evaluation_step(
     trained_model: Pipeline, X_test: pd.DataFrame, y_test: pd.Series
 ):
@@ -41,6 +42,7 @@ def model_evaluation_step(
     evaluation_metric = evaluator.evaluate(trained_model.named_steps['model'],
                                             X_test_processed, y_test)
 
+    mlflow.log_metrics(evaluation_metric)
 
     logging.info(f"Evaluation metrics: {evaluation_metric}")
 

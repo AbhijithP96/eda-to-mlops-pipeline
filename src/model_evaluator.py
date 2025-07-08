@@ -59,7 +59,7 @@ class RegressionModelEvaluation(ModelEvaluation):
         mse = mean_squared_error(y_test, y_pred)
         r2 = r2_score(y_test, y_pred)
 
-        metrics = {"Mean Squared Error": mse, "R-Squared": r2}
+        metrics = {"evaluation_mse": mse, "evaluation_r2": r2}
 
         logging.info(f"Model Evaluation Metrics: {metrics}")
         return metrics
@@ -92,10 +92,10 @@ class ClassificationModelEvaluation(ModelEvaluation):
         f1 = f1_score(y_test, y_pred, average="weighted")
 
         metrics = {
-            "Accuracy": accuracy,
-            "Precision": precision,
-            "Recall": recall,
-            "F1-Score": f1
+            "evaluation_Accuracy": accuracy,
+            "evaluation_Precision": precision,
+            "evaluation_Recall": recall,
+            "evaluation_F1-Score": f1
         }
 
         logging.info(f"Classification Evaluation Metrics: {metrics}")
