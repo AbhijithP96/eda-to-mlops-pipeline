@@ -4,7 +4,7 @@ from pipelines.training_pipeline import ml_pipeline
 from zenml.integrations.mlflow.mlflow_utils import get_tracking_uri
 
 @click.command()
-@click.option('--config', prompt='Enter path to config JSON', required=True)
+@click.option('--config', required=True)
 def main(config):
 
     with open(config, 'r') as f:

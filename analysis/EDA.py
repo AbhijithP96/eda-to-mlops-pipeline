@@ -48,12 +48,16 @@ class EDA:
                     raise ValueError
             except ValueError:
                 print('\nInvalid Selction, Please re-enter')
+                continue
 
             if option == 6:
                 break
 
-            analysis[option-1]()
-        
+            try:    
+                analysis[option-1]()
+            except Exception as e:
+                print(f'Error Occured {(e,)}')
+                continue
 
     def basic_data_inspection(self) -> None:
         """Allows user to inspect the data and generate summary statistics of the given dataframe.
